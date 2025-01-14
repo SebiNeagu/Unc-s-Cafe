@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700');
+@import url('https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap');
+
+  *{
+    padding: 0;
+    margin: 0;
+  }
+
+  body{
+    background-color:#1c382f;
+    color: #e6e9e8;
+    font-family: kalam,calibri;
+  }
+
+  .nav{
+    background-color: #172f27;
+    text-align: center;
+    
+    
+  }
+  .navy ul{
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .navy ul li{
+    list-style: none;
+  }
+
+  .navy ul li a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 25px;
+    transition: color 0.3s ease;
+    font-family: kalam,calibri;
+  }
+
+  .navy ul li:hover a{
+    color: burlywood;
+  }
+
+  .navy ul li:last-child a{
+    margin: 0;
+  }
+
+
+  h1 {
+    font-size: 60px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    font-family: sedan sc;
+
+  }
+
+  img{
+    margin: 10px;
+  }
+  
+  h2 {
+    font-size: 40px;
+    font-family: Sedan Sc;
+    font-weight: 600;
+  }
+  
+  .established {
+    font-style: italic;
+    text-align: center;
+    margin: 0px 10px 0px 0px;
+
+  }
+  
+  h2, p {
+    text-align: center;
+  }
+
+  section{
+    display: grid;
+  }
+  
+  .menu {
+    background-color: #1c382f;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius:20px;
+    flex-wrap: wrap;
+    justify-content: center; /* Horizontally center */
+    align-items: center;
+    cursor: pointer;
+    
+  }
+
+  p{
+    margin: 45px 0px 0px 20px;
+    font-family: kalam , calibri;
+    font-size: 22px;
+    
+  }
+
+
+  .item img{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 100px;
+  }
+
+  .item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+
+#cartContainer {
+    border: 2px solid #11231d; 
+    padding: 15px;            
+    margin-top: 20px;         
+    border-radius: 5px;      
+    font-family: Arial, sans-serif; 
+}
+
+/* Message when the cart is empty */
+#cartContainer p {
+    text-align: center;
+    font-style: italic;
+    color: #ffffff;
+}
+
+.cart-item {
+    border: 1px solid white;
+    padding: 10px 0;
+  }
+
+/* Remove button styles */
+.cart-item button {
+    background-color: #f44336; 
+    color: white;             
+    border: none;              
+    border-radius: 25px;       
+    padding: 5px 10px;         
+    cursor: pointer;           
+    font-size: 16px;           
+}
+
+hr{
+    color: black;
+}

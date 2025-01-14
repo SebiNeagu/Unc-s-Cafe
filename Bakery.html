@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://kit.fontawesome.com/6cb1a60b8c.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="coffee 1 2.css">
+    <title>Bakery</title>
+</head>
+<body>
+    <div class="nav">
+        <h1> Unc's Cafe</h1>
+        <div class="navy">
+          <ul>
+            <li><a href="coffee 1 1.html">Coffee</a></li>
+            <li><a href="Bakery.html">Bakery</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="History.html">Our History</a></li>
+          </ul>
+        </div>
+        <p class="established">Est. 2024</p>
+    </div>
+    <div class="menu">
+        <main>
+            <h2>Bakery</h2>
+            <div class="container">
+                <div class="item" onclick="addToCartPrompt('Almond Croissant')">
+                    <img src="3a55b3d12b7322a1dc4f7a6338007d32_0.webp" alt="Almond Croissant">
+                    <p class="item2">Almond Croissant</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Banana Loaf Cake')">
+                    <img src="Banana-Loaf-Cake_0.webp" alt="Banana Loaf Cake">
+                    <p class="item2">Banana Loaf Cake</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Blueberry Muffin')">
+                    <img src="Blueberry-Muffin_6.webp" alt="Blueberry Muffin">
+                    <p class="item2">Blueberry Muffin</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Chocolate Brownie')">
+                    <img src="Chocolate-Brownie-.webp" alt="Chocolate Brownie">
+                    <p class="item2">Chocolate Brownie</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Caramel Shortbread')">
+                    <img src="Chocolate-Caramel-Shortbread_2.webp" alt="Caramel Shortbread">
+                    <p class="item2">Caramel Shortbread</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Chocolate Chunk Cookie')">
+                    <img src="Chocolate-Chunk-Cookie_4.webp" alt="Chocolate Chunk Cookie">
+                    <p class="item2">Chocolate Chunk Cookie</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Butter Croissant')">
+                    <img src="Butter-Croissant_2.webp" alt="Butter Croissant">
+                    <p class="item2">Butter Croissant</p>
+                </div>
+                <div class="item" onclick="addToCartPrompt('Salted Dulce De Leche Loaded Cookie')">
+                    <img src="SBX-MOP-1500x1500-Salted-Dulce-De-Leche-Loaded-Cookie.webp" alt="Salted Dulce De Leche Loaded Cookie">
+                    <p class="item2">Salted Dulce De Leche Loaded Cookie</p>
+                </div>
+            </div>
+        </main>
+
+        <div id="cartSection" class="cart-section">
+            <div id="cartItems"></div>
+            <p id="cartEmpty" style="display: none;">Your cart is empty.</p>
+        </div>
+    </div>
+
+    <script>
+        // Prices for each item
+        const itemPrices = {
+            "Almond Croissant": 2.50,
+            "Banana Loaf Cake": 3.50,
+            "Blueberry Muffin": 3.90,
+            "Chocolate Brownie": 2.50,
+            "Caramel Shortbread": 2.90,
+            "Chocolate Chunk Cookie": 2.90,
+            "Butter Croissant": 2.20,
+            "Salted Dulce De Leche Loaded Cookie": 3.90
+        };
+
+        // Cart to hold selected items
+        let cart = [];
+
+        // Function to handle item click and prompt
+        function addToCartPrompt(itemName) {
+            const userConfirmed = confirm(`Would you like to add "${itemName}" to your cart?`);
+            if (userConfirmed) {
+                addToCart(itemName);
+            }
+        }
+
+        // Function to add item to cart
+        function addToCart(itemName) {
+            const price = itemPrices[itemName];
+            cart.push({ name: itemName, price });
+            displayCart();
+        }
+
+        // Function to display cart items
+        function displayCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartEmptyMessage = document.getElementById('cartEmpty');
+
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartEmptyMessage.style.display = 'block';
+                return;
+            }
+
+            cartEmptyMessage.style.display = 'none';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <p>${item.name} - £${item.price.toFixed(2)}</p>
+                    <button onclick="removeFromCart(${index})">Remove <i class="fa-regular fa-trash-can"></i></button>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            const totalDiv = document.createElement('div');
+            totalDiv.classList.add('cart-total');
+            totalDiv.innerHTML = `<strong>Total: £${total.toFixed(2)}</strong>`;
+            cartItemsContainer.appendChild(totalDiv);
+        }
+
+        // Function to remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+    </script>
+</body>
+</html>

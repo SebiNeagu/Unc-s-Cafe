@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locations Page</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700');
+    @import url('https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap');
+
+    body {
+      display: flex;
+      margin: 0;
+      font-family: 'Kalam', cursive;
+      background-color: #f9f9f9;
+    }
+
+   
+    #map {
+      width: 70%; 
+      height: 100vh; 
+    }
+
+ 
+    .location-selector {
+      width: 30%; 
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #1c382f; 
+      color: white; 
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    
+    .location-selector h2 {
+      margin-top: 0;
+      font-family: 'Sedan SC', serif;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+   
+    .location-item {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+      transform: scale(1.2); 
+      accent-color: white; 
+    }
+
+   
+    label {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    
+    label:hover {
+      cursor: pointer;
+      color: #d5f5e7; 
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: #1c382f; /* Dark green link */
+      border: 2px solid #1c382f; /* Outline button style */
+      padding: 8px 16px;
+      border-radius: 5px;
+      background-color: #d5f5e7; /* Light green background */
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #193129; /* Dark green hover */
+      color: #f9f9f9; /* Light text on hover */
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="map"></div>
+
+  <div class="location-selector">
+    <h2>Select a Location</h2>
+    <div class="location-item">
+      <input type="radio" id="location1" name="location" value="51.505,-0.09" checked>
+      <label for="location1">Location 1: London</label>
+    </div>
+    <div class="location-item">
+      <input type="radio" id="location2" name="location" value="48.8566,2.3522">
+      <label for="location2">Location 2: Paris</label>
+    </div>
+    <a href="coffee 1 1.html" class="back-link">Back to Home</a>
+  </div>
+  
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    
+    const map = L.map('map').setView([51.505, -0.09], 13); 
+
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+   
+    const marker = L.marker([51.505, -0.09]).addTo(map);
+
+   
+    function updateMarker(lat, lng) {
+      marker.setLatLng([lat, lng]);
+      map.setView([lat, lng], 13); 
+    }
+
+    document.querySelectorAll('input[name="location"]').forEach(input => {
+      input.addEventListener('change', (event) => {
+        const [lat, lng] = event.target.value.split(',').map(Number);
+        updateMarker(lat, lng);
+      });
+    });
+  </script>
+</body>
+</html>
