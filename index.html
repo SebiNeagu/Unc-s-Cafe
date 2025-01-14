@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://kit.fontawesome.com/6cb1a60b8c.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sedan+SC&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Menu</title>
+  <link href="coffee 1 1.css" rel="stylesheet">
+</head>
+</head>
+<body>
+<div class="nav">
+  <h1> Unc's Cafe</h1>
+  <div class="navy">
+    <ul>
+      <li><a href="coffee 1 1.html">Coffee</a></li>
+      <li><a href="Bakery.html">Bakery</a></li>
+      <li><a href="locations.html">Locations</a></li>
+      <li><a href="History.html">Our History</a></li>
+    </ul>
+  </div>
+  <p class="established">Est. 2024</p>
+</div>
+<div class="menu">
+  <main>
+    <h2>Coffee</h2>
+    <div class="container">
+      <div class="item" onclick="showCustomization('Espresso')">
+        <img src="Espresso.jpeg" alt="Espresso">
+        <p class="flavor">Espresso</p>
+      </div>
+      <div class="item" onclick="showCustomization('Americano')">
+        <img src="Americano_0.jpeg" alt="Americano">
+        <p class="flavor">Americano</p>
+      </div>
+      <div class="item" onclick="showCustomization('Latte')">
+        <img src="Latte_0.jpeg" alt="Latte">
+        <p class="flavor">Latte</p>
+      </div>
+      <div class="item" onclick="showCustomization('Cappuccino')">
+        <img src="Cappuccino.jpeg" alt="Cappuccino">
+        <p class="flavor">Cappuccino</p>
+      </div>
+      <div class="item" onclick="showCustomization('Flat White')">
+        <img src="flatwhite.jpg" alt="Flatwhite">
+        <p class="flavor">Flat White</p>
+      </div>
+      <div class="item" onclick="showCustomization('Macchiato')">
+        <img src="Latte-Macchiato.jpeg" alt="Macchiato">
+        <p class="flavor">Macchiato</p>
+      </div>
+      <div class="item" onclick="showCustomization('Mocha')">
+        <img src="Mocha.jpeg" alt="Mocha">
+        <p class="flavor">Mocha</p>
+      </div>
+      <div class="item" onclick="showCustomization('Hot Chocolate')">
+        <img src="Classic-Hot-Chocolate_2 (1).jpeg" alt="Hot Chocolate">
+        <p class="flavor">Hot Chocolate</p>
+      </div>
+    </div>
+
+    <div id="customizeModal" class="modal">
+      <div class="modal-header" id="coffeeTypeHeader">Customize Your Coffee</div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button onclick="addToCart()">Add to Cart</button>
+        <button onclick="closeCustomization()">Cancel</button>
+      </div>
+    </div>
+    <div id="overlay" class="overlay" onclick="closeCustomization()"></div>
+    <div id="customizeModal" class="modal">
+      <div class="modal-header" id="coffeeTypeHeader">Customize Your Coffee</div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <p><strong>Total Cost: £<span id="totalCost">0.00</span></strong></p>
+        <button onclick="addToCart()">Add to Cart</button>
+        <button onclick="closeCustomization()">Cancel</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="cartContainer"></div>
+
+<script>
+  let cart = [];
+
+  function showCustomization(coffeeType) {
+    document.getElementById('coffeeTypeHeader').textContent = `Customize Your ${coffeeType}`;
+    document.getElementById('modalBody').innerHTML = `
+      <div class="options">
+        <div class="option selected" onclick="selectOption(this)">Regular</div>
+        <div class="option" onclick="selectOption(this)">Double Shot</div>
+        <div class="option" onclick="selectOption(this)">Triple Shot</div>
+      </div>
+      <form class="customize-form">
+        <label for="milk">Milk Type:</label>
+        <select name="milk" id="milk">
+          <option value="none">None</option>
+          <option value="whole">Whole Milk</option>
+          <option value="semi-skimmed">Semi Skimmed Milk</option>
+          <option value="skimmed">Skimmed Milk</option>
+          <option value="oat">Oat Milk</option>
+          <option value="cashew">Cashew Milk</option>
+          <option value="almond">Almond Milk</option>
+          <option value="soya">Soya Milk</option>
+          <option value="goat">Goat Milk</option>
+          <option value="yak">Yak Milk</option>
+          <option value="nettle">Nettle Milk</option>
+        </select>
+        <label for="flavor">Flavoring:</label>
+        <select name="flavor" id="flavor">
+          <option value="none">None</option>
+          <option value="hazelnut">Hazelnut</option>
+          <option value="caramel">Caramel</option>
+          <option value="chocolate">Chocolate</option>
+          <option value="cinnamon">Cinnamon</option>
+          <option value="peppermint">Peppermint</option>
+          <option value="vanilla">Vanilla</option>
+          <option value="salted-caramel">Salted Caramel</option>
+          <option value="5-spice">5 Spice</option>
+          <option value="truffle">Truffle</option>
+          <option value="paprika">Paprika</option>
+          <option value="turmeric">Turmeric</option>
+          <option value="lions-maine">Lions Maine</option>
+        </select>
+      </form>
+    `;
+    document.getElementById('customizeModal').classList.add('active');
+    document.getElementById('overlay').classList.add('active');
+  }
+
+  function closeCustomization() {
+    document.getElementById('customizeModal').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function selectOption(element) {
+    document.querySelectorAll('.option').forEach(option => option.classList.remove('selected'));
+    element.classList.add('selected');
+  }
+
+  function addToCart() {
+    const selectedSize = document.querySelector('.option.selected').textContent;
+    const milkType = document.getElementById('milk').value;
+    const flavor = document.getElementById('flavor').value;
+
+    // Pricing logic
+    const basePrice = 1.50; // Espresso Shot
+    const milkCost = milkType !== "none" ? 2.00 : 0.00; // £2 for milk, none = £0
+    const syrupCost = flavor !== "none" ? 0.75 : 0.00; // £0.75 for syrup, none = £0
+
+    // Determine the size multiplier
+    let sizeMultiplier = 1; // Regular by default
+    if (selectedSize === "Double Shot") sizeMultiplier = 2;
+    else if (selectedSize === "Triple Shot") sizeMultiplier = 3;
+
+    // Calculate total cost
+    const totalCost = (basePrice * sizeMultiplier) + milkCost + syrupCost;
+
+    const newItem = {
+      coffeeType: document.getElementById('coffeeTypeHeader').textContent.replace("Customize Your ", ""),
+      size: selectedSize,
+      milk: milkType,
+      flavor: flavor,
+      price: totalCost.toFixed(2), // Format to 2 decimal places
+    };
+
+    cart.push(newItem);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`Added to cart:\n${JSON.stringify(newItem, null, 2)}`);
+    closeCustomization();
+    displayCart();
+  }
+
+  function displayCart() {
+    const cartContainer = document.getElementById('cartContainer');
+    cartContainer.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+      return;
+    }
+
+    cart.forEach((item, index) => {
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
+        <p><strong>${item.coffeeType}</strong></p>
+        <p>Shot: ${item.size}</p>
+        <p>Milk: ${item.milk}</p>
+        <p>Flavor: ${item.flavor}</p>
+        <p>Price: £${item.price}</p>
+        <button onclick="removeFromCart(${index})">Remove  <i class="fa-regular fa-trash-can"></i></button>
+      `;
+      cartContainer.appendChild(cartItem);
+    });
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      cart = JSON.parse(savedCart);
+      displayCart();
+    }
+
+    let cart = [];
+
+    // Load cart from localStorage on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            displayCart();
+        } else {
+            displayCart();
+        }
+    });
+
+    // Save cart to localStorage whenever it changes
+    function saveCartToLocalStorage() {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Add item to cart
+    function addToCart(itemName) {
+        cart.push(itemName);
+        saveCartToLocalStorage(); // Save the updated cart
+        displayCart();
+    }
+
+    // Remove item from cart
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        saveCartToLocalStorage(); // Save the updated cart
+        displayCart();
+    }
+
+    // Display the cart
+    function displayCart() {
+        const cartContainer = document.getElementById('cartContainer');
+        cartContainer.innerHTML = ''; // Clear the cart container
+
+        if (cart.length === 0) {
+            cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+            return;
+        }
+
+        // Add cart items dynamically
+        cart.forEach((item, index) => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
+                <p>${item}</p>
+                <button onclick="removeFromCart(${index})">Remove</button>
+            `;
+            cartContainer.appendChild(cartItem);
+        });
+    }
+    
+  });
+</script>
+</body>
+</html>
+
